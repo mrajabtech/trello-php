@@ -377,9 +377,9 @@ trait ApiMethodsTrait
             array_unshift($parameters, $path);
             
             if($signature[0] == 'get') {
-                Configuration::set('domain', str_replace('https://', 'http://', Configuration::get('domain'))); //'http://api.trello.com');
+                Configuration::set('domain', str_replace('https://', 'http://', Configuration::get('domain')));
             } else {
-                Configuration::set('domain', str_replace('http://', 'https://', Configuration::get('domain'))); //'https://api.trello.com');
+                Configuration::set('domain', str_replace('http://', 'https://', Configuration::get('domain')));
             }
 
             return call_user_func_array([$this->getHttp(), $signature[0]], $parameters);
