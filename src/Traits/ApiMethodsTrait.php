@@ -1,6 +1,7 @@
 <?php namespace Stevenmaguire\Services\Trello\Traits;
 
 use BadMethodCallException;
+use Stevenmaguire\Services\Trello\Configuration;
 
 trait ApiMethodsTrait
 {
@@ -374,6 +375,12 @@ trait ApiMethodsTrait
             $path = call_user_func_array('sprintf', $replacementParams);
 
             array_unshift($parameters, $path);
+            
+            if($signature[0] == 'get') {
+                Configuration::set('domain', str_replace('https://', 'http://', Configuration::get('domain'))); //'http://api.trello.com');
+            } else {
+                Configuration::set('domain', str_replace('http://', 'https://', Configuration::get('domain'))); //'https://api.trello.com');
+            }
 
             return call_user_func_array([$this->getHttp(), $signature[0]], $parameters);
         }
